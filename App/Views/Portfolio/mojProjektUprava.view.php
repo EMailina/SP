@@ -25,7 +25,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php } ?>
-            <form action="?c=home&a=saveChange&id=<?= $_GET['id'] ?>" method="post">
+            <form action="?c=portfolio&a=saveChange&id=<?= $_GET['id'] ?>" method="post">
                 <div class="row g-3">
                     <div class="col-sm-10">
                         <h2> <?= $p = \App\Models\Project::getOne($_GET['id'])->getName(); ?></h2>
@@ -63,7 +63,7 @@
 
             <?php foreach ($data['projectImages'] as $projectImage) { ?>
                 <div class="box">
-                    <form action="?c=home&a=deleteImage&id=<?= $projectImage->getId() ?>" method="post">
+                    <form action="?c=portfolio&a=deleteImage&id=<?= $projectImage->getId() ?>" method="post">
                         <button class="btn-close" aria-label="Close"></button>
                     </form>
                     <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() ?>"
@@ -128,7 +128,7 @@
                 <h2 style="text-align: center">Pridanie obrázka</h2>
                 <form method="post" enctype="multipart/form-data"
 
-                      action="?c=home&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
+                      action="?c=portfolio&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
                     <div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Titulný obrázok</label>
@@ -137,7 +137,7 @@
                         <div class="mb3">
                             <label for="validationDefault01" class="form-label">Názov</label>
                             <input name="name" type="text" class="form-control" id="validationDefault01" value=""
-                                   required>
+                                  >
                         </div>
 
                         <div class="mb-3">
@@ -149,7 +149,4 @@
             </div>
         </div>
     </section>
-    <!--<div class="stred">
-        <a href="?c=home&a=addProject" class="btn stred">Pridať Obrázok</a>
-    </div>-->
 </main>

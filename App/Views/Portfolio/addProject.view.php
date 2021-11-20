@@ -2,6 +2,12 @@
 <main>
 <div class="row">
     <div class="col-sm-4 offset-sm-4">
+        <?php if ($data['error'] != "") { ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <?= $data['error'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php } ?>
         <form method="post" enctype="multipart/form-data" action="?c=portfolio&a=upload">
             <div>
                 <div class="mb-3">

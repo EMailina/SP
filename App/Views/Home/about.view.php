@@ -35,7 +35,7 @@
         <div class="team">
             <div class="container">
                 <div class="team-card">
-                    <div class="card">
+                    <div class="mcard">
                         <div class="image-section">
                             <img src="public/Obrazky/Osoba3.png" alt="fotka člena tímu">
 
@@ -52,7 +52,7 @@
                     </div>
 
 
-                    <div class="card">
+                    <div class="mcard">
                         <div class="image-section">
                             <img src="public/Obrazky/osoba4.png" alt="fotka člena tímu">
 
@@ -65,7 +65,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="mcard">
                         <div class="image-section">
                             <img src="public/Obrazky/Osoba2.png" alt="fotka člena tímu">
 
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="card">
+                    <div class="mcard">
                         <div class="image-section">
                             <img src="public/Obrazky/Osoba1.png" alt="fotka člena tímu">
 
@@ -94,22 +94,6 @@
                 </div>
 
 
-                <!--<h3>Antol XD</h3>
-                <p>
-                    Ahoj, moje meno je Antol a do tejto spoločnosti som sa dostal dverami. Bol to jeden vchod na námestí.
-                    Presne
-                    tak som kedysi otvoril dvere Vamz-ku a vypomstilo sa to. Som tímový hráč a mám rád víno s džúsom.
-                </p>
-                <h3>Maťko 4.A</h3>
-                <p>
-                    Ahoj, moje meno je Maťko a dizajn som sa naučil popri škole v tretej triede. Pani učiteľka ma za to
-                    pochvalila. V piataku sa vraj naučím aj Web.
-                </p>
-                <h3>Maťko 4.A</h3>
-                <p>
-                    Ahoj, moje meno je Maťko a dizajn som sa naučil popri škole v tretej triede. Pani učiteľka ma za to
-                    pochvalila. V piataku sa vraj naučím aj Web.
-                </p>-->
             </div>
         </div>
     </div>

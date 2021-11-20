@@ -60,7 +60,7 @@
 
 
             <form method="post" enctype="multipart/form-data"
-                  action="?c=home&a=addComment&id=<?= $data['id'] ?>">
+                  action="?c=portfolio&a=addComment&id=<?= $data['id'] ?>">
 
 
                 <div class="input-group mb-3">

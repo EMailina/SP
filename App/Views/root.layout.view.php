@@ -19,12 +19,15 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="public/css.css">
+    <!--<script src="../../public/script.js" ></script>-->
+
+
 </head>
 <body>
 <header>
     <!--<a href="#" class="logo"><img src="images/logo1.png"></a>-->
-    <a href="#uvod" class="logo"></a>
-    <a href="#uvod" class="logoName">Malina Design</a>
+    <a href="?c=home" class="logo"></a>
+    <a href="?c=home" class="logoName">Malina Design</a>
     <!--<div class="menuToggle"></div>-->
     <div class="menuIcon">
         <i class="fas fa-bars"></i>
@@ -32,9 +35,9 @@
     <ul class="navigation">
         <li><a href="?c=home" <!--class="aktivne"-->Domov</a></li>
         <li><a href="?c=home&a=about">O nás</a></li>
-        <li><a href="?c=home&a=portfolio">Portfólio</a></li>
+        <li><a href="?c=portfolio&a=portfolio">Portfólio</a></li>
         <?php if (\App\Auth::isLogged()){?>
-            <li><a href="?c=home&a=moje">Moje</a></li>
+            <li><a href="?c=portfolio&a=moje">Moje</a></li>
         <?php } ?>
         <!--<li><a href="">Pre firmy</a></li>-->
         <li><a href="?c=home&a=contact">Kontakt</a></li>
@@ -63,11 +66,11 @@
         <h2> Malina Design</h2>
         <p class="footer-links">
 
-            <a href="#" class="aktivne">Domov</a> |
-            <a href="Onas.html">O nás</a> |
-            <a href="Portfolio.html">Portfólio</a> |
-            <!-- <a href="">Pre firmy</a> -->|
-            <a href="kontakt.html">Kontakt</a>
+            <a href="?c=home">Domov</a> |
+            <a href="?c=home&a=about">O nás</a> |
+            <a href="?c=portfolio&a=portfolio">Portfólio</a> |
+            <!-- <a href="">Pre firmy</a> -->
+            <a href="?c=home&a=contact">Kontakt</a>
         </p>
         <p class="footer-company-name">Copyright © 2021 Malina Design All rights reserved</p>
     </div>
@@ -100,7 +103,12 @@
             <a href="https://twitter.com/?lang=sk" target="_blank"><i class="fa fa-twitter"></i></a>
             <a href="https://www.youtube.com/?gl=SK&tab=w1" target="_blank"><i class="fa fa-youtube"></i></a>
         </div>
-        <a href="kontakt.html" class="btn">Kontaktujte nás</a>
+        <?php if(!\App\Auth::isLogged()){?>
+
+        <a href="<?= \App\Config\Configuration::LOGIN_URL ?>" class="mbtn">Prihláste sa</a>
+        <?php }else { ?>
+            <a href="#" class="mbtn"><?= \App\Auth::getName() ?></a>
+         <?php }?>
     </div>
 
 

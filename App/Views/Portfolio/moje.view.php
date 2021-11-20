@@ -2,6 +2,20 @@
 
 <main>
     <section class="portfolio">
+        <?php if ($data['success'] != "") { ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= $data['success'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php } ?>
+
+        <?php if ($data['error'] != "") { ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <?= $data['error'] ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php } ?>
+
         <h2>Moje Portfólio</h2>
         <p>Pre podrobné upravenie stlačte konkrétne portfólio.</p>
         <div class="portfolio-grid">

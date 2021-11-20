@@ -6,6 +6,7 @@ use App\Core\AControllerBase;
 
 use App\Auth;
 use App\Config\Configuration;
+use App\Models\Comment;
 use App\Models\Project;
 use App\Models\ProjectImage;
 use App\Models\Registration;
@@ -40,7 +41,8 @@ class HomeController extends AControllerRedirect
             []
         );
     }
-
+}
+/*
     public function portfolio()
     {
         $projects = Project::getAll();
@@ -56,7 +58,7 @@ class HomeController extends AControllerRedirect
         $projects = Project::getAll("user_id like '" . $_SESSION['id'] . "'");
         return $this->html(
             [
-                'projects' => $projects
+                'projects' => $projects, 'success'=>$this->request()->getValue('success')
             ]);
 
     }
@@ -65,9 +67,22 @@ class HomeController extends AControllerRedirect
     {
 
         $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
+        $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
         return $this->html(
             [
-                'projectImages' => $projectImages, 'id'=>$this->request()->getValue('id'),'error'=>$this->request()->getValue('error')
+                'comments' => $comments,  'projectImages' => $projectImages, 'id'=>$this->request()->getValue('id'),'error'=>$this->request()->getValue('error'),'success'=>$this->request()->getValue('success')
+            ]);
+
+    }
+
+    public function ukazkaProjektu()
+    {
+
+        $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
+        $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
+        return $this->html(
+            [
+                'projectImages' => $projectImages,'comments' => $comments, 'id'=>$this->request()->getValue('id'),'error'=>$this->request()->getValue('error')
             ]);
 
     }
@@ -80,6 +95,42 @@ class HomeController extends AControllerRedirect
         }
         return $this->html();
     }
+
+    public function deleteImage(){
+        $id = $this->request()->getValue('id');
+        if($id != null){
+            $image = ProjectImage::getOne($id);
+            $stranka = $image->getIdProject();
+            $image->delete();
+            $this->redirect('home', 'mojProjektUprava' ,['id' =>  $stranka, 'success'=> 'Obrázok v portfóliu bol vymazaný']);
+        }else {
+            $this->redirect('home', 'moje');
+        }
+    }
+
+    public function deleteProject(){
+        $id = $this->request()->getValue('id');
+
+        if($id != null){
+            $projekt = Project::getOne($id);
+            $obrazky = ProjectImage::getAll("id_project = '" . $id . "'");
+            foreach ($obrazky as $obrazok){
+                $obrazok->delete();
+            }
+
+            $comments = Comment::getAll("project_id = '" . $id . "'");
+            foreach ($comments as $comment){
+                $comment->delete();
+            }
+
+            $projekt->delete();
+
+            $this->redirect('home', 'moje' , ['success'=> 'Portfólio vymazané']);
+        }else {
+            $this->redirect('home', 'moje');
+        }
+    }
+
 
     public function upload()
     {
@@ -96,9 +147,15 @@ class HomeController extends AControllerRedirect
                     $newPr = new Project(user_id: $_SESSION['id'], image: $nameImg, name: $name, text: $text);
 
                     $newPr->save();
-
+                    $this->redirect('home', 'mojProjektUprava&id=' . $newPr->getId(), ['error' => 'Nezadali ste názov portfólia!', 'id'=> $newPr->getId()]);
+                }else{
+                    $this->redirect('home', 'moje');
                 }
+            }else{
+                $this->redirect('home', 'moje');
             }
+        }else{
+            $this->redirect('home', 'moje');
         }
         $this->redirect('home', 'moje');
     }
@@ -113,7 +170,7 @@ class HomeController extends AControllerRedirect
             $p->setName($name);
             $p->setText($text);
             $p->save();
-            $this->redirect('home', 'mojProjektUprava&id=' . $_GET['id']);
+            $this->redirect('home', 'mojProjektUprava&id=' . $_GET['id'], ['success'=> 'Vaše zmeny sa uložili.']);
 
         } else {
             $this->redirect('home', 'mojProjektUprava' , ['error' => 'Nezadali ste názov portfólia!', 'id'=> $_GET['id']]);
@@ -128,14 +185,29 @@ class HomeController extends AControllerRedirect
                 move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
                 $name = $this->request()->getValue('name');
 
-                /*if($name != null ) {*/
+                if($name != null ) {
                 $newPrImage = new ProjectImage(id_project: $_GET['id'], image: $nameImg, name: $name);
 
-                $newPrImage->save();
-                /* }*/
+
+                 }
             }
         }
-        $this->redirect('home', 'mojProjektUprava&id=' . $_GET['id']);
+        $this->redirect('home', 'mojProjektUprava' ,['id'=> $_GET['id'], 'success' => 'Obrázok sa nahral do portfólia.']);
+    }
+    public function addComment()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect('home', 'ukazkaProjektu', ['id' => $_GET['id'], 'error'=> 'Pre komentovanie sa musite prihlasit']);
+        }else {
+            $text = $this->request()->getValue('comment');
+            if ($text != null && $text != "") {
+                $comment = new Comment(project_id: $_GET['id'], text: $text, user_id: $_SESSION['id']);
+                $comment->save();
+
+                $this->redirect('home', 'ukazkaProjektu', ['id' => $_GET['id']]);
+
+            }
+        }
     }
 
-}
+}*/

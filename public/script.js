@@ -6,6 +6,3 @@ menuIcon.addEventListener('click',() => {
 
 });
 
-
-
-
