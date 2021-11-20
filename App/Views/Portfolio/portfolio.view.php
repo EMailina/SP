@@ -5,20 +5,25 @@
     <div class="container">
         <div class="row">
             <?php foreach ($data['projects'] as $project) { ?>
-            <div class="card mb-5 " style="max-width: 1000px;">
-                <div class="row g-0">
-                    <div class="col-md-2" >
-                        <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() ?>" class="img-fluid rounded-start" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">   <?= $project->getName() ?></h5>
-                            <p class="card-text">   <?= $project->getText() ?></p>
-                            <p class="card-text"><small class="text-muted">   <?= $project->getUser() ?></small></p>
+                <a href="?c=home&a=ukazkaProjektu&id=<?=$project->getId()?>">
+                    <div class="card mb-5 " style="max-width: 1000px;">
+                        <div class="row g-0">
+                            <div class="col-md-2">
+                                <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() ?>"
+                                     class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">   <?= $project->getName() ?></h5>
+                                    <p class="card-text">   <?= $project->getText() ?></p>
+                                    <p class="card-text"><small class="text-muted">   <?= $project->getUser() ?></small>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </a>
+
             <?php } ?>
         </div>
     </div>

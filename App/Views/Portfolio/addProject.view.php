@@ -2,7 +2,7 @@
 <main>
 <div class="row">
     <div class="col-sm-4 offset-sm-4">
-        <form method="post" enctype="multipart/form-data" action="?c=home&a=upload">
+        <form method="post" enctype="multipart/form-data" action="?c=portfolio&a=upload">
             <div>
                 <div class="mb-3">
                     <label for="formFile" class="form-label">Titulný obrázok</label>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-md-8">
                     <label for="validationDefault01" class="form-label">Názov</label>
-                    <input name="name" type="text" class="form-control" id="validationDefault01" value="Project name" required>
+                    <input name="name" type="text" class="form-control" id="validationDefault01" value="" required>
                 </div>
 
                 <div class="form-group">
@@ -22,7 +22,7 @@
                     <input name="file1" class="form-control" id="formFile1" type="file" multiple>
                 </div>-->
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Vytvoriť</button>
+                    <button type="submit" class="mbtn ">Vytvoriť</button>
                 </div>
             </div>
 

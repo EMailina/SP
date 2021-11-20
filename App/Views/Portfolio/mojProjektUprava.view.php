@@ -12,12 +12,19 @@
 
     <section class="portfolio">
         <div class="container">
-            <?php if($data['error'] != "") { ?>
+
+            <?php if ($data['error'] != "") { ?>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                   <?= $data['error']?>
+                    <?= $data['error'] ?>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <?php } ?>
+            <?php } ?>
+            <?php if ($data['success'] != "") { ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $data['success'] ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php } ?>
             <form action="?c=home&a=saveChange&id=<?= $_GET['id'] ?>" method="post">
                 <div class="row g-3">
                     <div class="col-sm-10">
@@ -39,22 +46,59 @@
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary col-auto">Potvrdiť zmeny</button>
+                <button type="submit" class="mbtn">Potvrdiť zmeny</button>
 
         </div>
 
         </form>
+    </section>
+    <section class="portfolio">
+
+        <h2>Obrázky</h2>
+        <?php if($data['projectImages'] == null){?>
+            <p>Zatiaľ bez obrázkov.</p>
+
+        <?php }?>
         <div class="portfolio-grid">
+
             <?php foreach ($data['projectImages'] as $projectImage) { ?>
                 <div class="box">
+                    <form action="?c=home&a=deleteImage&id=<?= $projectImage->getId() ?>" method="post">
+                        <button class="btn-close" aria-label="Close"></button>
+                    </form>
                     <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() ?>"
                          alt="Obrazok loga">
                     <div class="detail"><?= $projectImage->getName() ?></div>
                 </div>
+
+
+            <?php } ?>
+
+
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <h2>Komentáre</h2>
+            <div class="card-deck">
+                <?php foreach ($data['comments'] as $comments) { ?>
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <p class="card-text"><?= $comments->getText() ?></p>
+                            <p class="card-text" style="text-align: right"><small
+                                        class="text-muted"><?= $comments->getAuthor() ?></small></p>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+            <?php if ($data['comments'] == null) { ?>
+                <p>Zatiaľ bez komentárov</p>
             <?php } ?>
         </div>
 
-        <!--</section>
+            <!--</section>
     <div class="container">
         <div class="row">
             <div class="d-flex justify-content-start flex-wrap">
@@ -77,24 +121,27 @@
     </div>
 
     </section>-->
-
+    </section>
+    <section>
         <div class="row">
             <div class="col-sm-4 offset-sm-4">
+                <h2 style="text-align: center">Pridanie obrázka</h2>
                 <form method="post" enctype="multipart/form-data"
+
                       action="?c=home&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
                     <div>
                         <div class="mb-3">
                             <label for="formFile" class="form-label">Titulný obrázok</label>
                             <input name="titleImage" class="form-control" id="formFile" type="file">
                         </div>
-                        <div class="col-md-8">
+                        <div class="mb3">
                             <label for="validationDefault01" class="form-label">Názov</label>
                             <input name="name" type="text" class="form-control" id="validationDefault01" value=""
                                    required>
                         </div>
 
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Pridať</button>
+                            <button type="submit" class="mbtn stred">Pridať</button>
                         </div>
                     </div>
 
