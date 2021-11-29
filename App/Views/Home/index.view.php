@@ -8,7 +8,7 @@
         <div class="content">
             <h2>Malina Design</h2>
             <div class="podnadpis">Pretože Dizajn je pre nás Malina</div>
-            <a href="Onas.html" class="mbtn">Viac o nás</a>
+            <a href="?c=about&a=about" class="mbtn">Viac o nás</a>
         </div>
     </section>
 
@@ -32,7 +32,7 @@
             Dôraz kladieme na kvalitné riešenia a pomáhame pri vzniku značiek s veľkým Z, pričom využívame naše skilli, cit
             pre dizajn a úspech.</p>
         <div class="stred">
-            <a href="Onas.html" class="mbtn stred">Viac o nás</a>
+            <a href="?c=about&a=about" class="mbtn stred">Viac o nás</a>
         </div>
     </section>
 
@@ -66,7 +66,7 @@
 
 
         </div>
-        <a href="Portfolio.html" class="mbtn stred">Zobraz všetko</a>
+        <a href="?c=portfolio&a=portfolio" class="mbtn stred">Zobraz všetko</a>
     </section>
 
     <!--<section class="about">

@@ -508,7 +508,9 @@ h1 {
     font-style: italic;
     margin-bottom: 50px;
 }
-
+#warningHeslo{
+/*display: none;*/
+}
 .menuIcon {
     position: absolute;
     float: right;

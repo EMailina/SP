@@ -35,18 +35,24 @@ class PortfolioController extends AControllerRedirect
 
     public function moje()
     {
-
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
         $projects = Project::getAll("user_id like '" . $_SESSION['id'] . "'");
         return $this->html(
             [
-                'projects' => $projects, 'success' => $this->request()->getValue('success'), 'error' => $this->request()->getValue('error')
+                'projects' => $projects, 'success' => $this->request()->getValue('success'),
+                'error' => $this->request()->getValue('error'),
+                'successReg' => $this->request()->getValue('successReg')
             ]);
 
     }
 
     public function mojProjektUprava()
     {
-
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
         $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
         $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
         return $this->html(
@@ -70,6 +76,9 @@ class PortfolioController extends AControllerRedirect
 
     public function addProject()
     {
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }

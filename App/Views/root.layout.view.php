@@ -6,7 +6,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ad2dfad92d.js" crossorigin="anonymous"></script>
-    <script src="script.js" defer></script>
+
     <link rel="icon" href="public/Obrazky/logoS.png">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,7 +19,9 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="public/css.css">
-    <!--<script src="../../public/script.js" ></script>-->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 
 
 </head>
@@ -29,27 +31,27 @@
     <a href="?c=home" class="logo"></a>
     <a href="?c=home" class="logoName">Malina Design</a>
     <!--<div class="menuToggle"></div>-->
-    <div class="menuIcon">
+    <div class="menuIcon" id="menuIcon" onclick="menu()">
         <i class="fas fa-bars"></i>
     </div>
     <ul class="navigation">
-        <li><a href="?c=home" <!--class="aktivne"-->Domov</a></li>
-        <li><a href="?c=home&a=about">O nás</a></li>
-        <li><a href="?c=portfolio&a=portfolio">Portfólio</a></li>
+        <li><a class="<?= $_GET['c'] == "home"?"aktivne":"" ?>" href="?c=home"> <!--class="aktivne"-->Domov</a></li>
+        <li><a class="<?= $_GET['c'] == "about"?"aktivne":"" ?>" href="?c=about&a=about">O nás</a></li>
+        <li><a class="<?= $_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] == "portfolio"||$_GET['a']== "ukazkaProjektu"?"aktivne":"":"" ?>" href="?c=portfolio&a=portfolio">Portfólio</a></li>
         <?php if (\App\Auth::isLogged()){?>
-            <li><a href="?c=portfolio&a=moje">Moje</a></li>
+            <li><a class="<?= $_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] != "portfolio"&&$_GET['a'] != "ukazkaProjektu"?"aktivne":"":"" ?>" href="?c=portfolio&a=moje">Moje</a></li>
         <?php } ?>
         <!--<li><a href="">Pre firmy</a></li>-->
-        <li><a href="?c=home&a=contact">Kontakt</a></li>
+        <li><a  class="<?= $_GET['c'] == "contact"?"aktivne":"" ?>" href="?c=contact&a=contact">Kontakt</a></li>
         <?php if (\App\Auth::isLogged()){?>
-            <li><a href="?c=auth&a=logout">Logout</a></li>
+            <li><a class="moj-link" href="?c=auth&a=logout">Logout</a></li>
 
         <?php } else { ?>
-            <li><a href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a></li>
+            <li><a class="<?= $_GET['c'] == "auth"?"aktivne":"" ?>" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a></li>
 
         <?php } ?>
     </ul>
-
+    <script src="public/scripty.js" ></script>
 </header>
 <?= $contentHTML ?>
 <!--<div class="container">
@@ -67,10 +69,10 @@
         <p class="footer-links">
 
             <a href="?c=home">Domov</a> |
-            <a href="?c=home&a=about">O nás</a> |
+            <a href="?c=about&a=about">O nás</a> |
             <a href="?c=portfolio&a=portfolio">Portfólio</a> |
             <!-- <a href="">Pre firmy</a> -->
-            <a href="?c=home&a=contact">Kontakt</a>
+            <a href="?c=contact&a=contact">Kontakt</a>
         </p>
         <p class="footer-company-name">Copyright © 2021 Malina Design All rights reserved</p>
     </div>

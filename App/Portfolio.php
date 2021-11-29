@@ -28,10 +28,10 @@ class Portfolio
                     return 'Meno alebo text neboli zadané.';
                 }
             } else {
-                return 'Problém s Obrázkom';
+                return 'Musite pridať aj obrázok';
             }
         } else {
-            return 'Problém s Obrázkom';
+            return 'Musíte pridať aj obrázok';
         }
     }
 
@@ -70,7 +70,7 @@ class Portfolio
                 return true;
             }
         }
-        return 'Problém s Obrázkom';
+        return 'Musíte pridať aj obrázok';
     }
 
     public static function deleteFromProject($id): int|string

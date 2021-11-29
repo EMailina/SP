@@ -1,5 +1,11 @@
 <?php /** @var Array $data */ ?>
+<script src="public/scripty.js"></script>
+<?php if ($data['successReg'] != "") { ?>
+    <script>
+        successRegistration('<?= $data['successReg']?>', '<?= $_SESSION['name']?>');
+    </script>
 
+<?php } ?>
 <main>
     <section class="portfolio">
         <?php if ($data['success'] != "") { ?>
@@ -25,7 +31,7 @@
 
                     <div class="box">
                         <form action="?c=portfolio&a=deleteProject&id=<?= $project->getId() ?>" method="post">
-                        <button  class="btn-close" aria-label="Close"></button>
+                            <button class="btn-close" aria-label="Close"></button>
                         </form>
                         <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() ?>"
                              alt="Obrazok loga">
@@ -35,35 +41,7 @@
             <?php } ?>
         </div>
 
-        <!--<div class="container">
-        <div class="row">
-            <div class="d-flex justify-content-start flex-wrap">
-                <?php /*foreach ($data['projects'] as $project) { */ ?>
-                    <a href="?c=home&a=mojProjektUprava&id=<? /*= $project->id */ ?>">
-                        <p>
 
-                        </p>
-                        <div class="card" style="width: 18rem; margin: 5px">
-
-                            <img src="<? /*= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() */ ?>"
-                                 class="card-img-top" alt="...">
-
-                            <div class="card-body">
-
-
-                                <div class="text-start mt-2">
-                                    <? /*= $project->getName() */ ?>
-                                </div>
-
-                            </div>
-                        </div>
-                    </a>
-                <?php /*} */ ?>
-            </div>
-        </div>
-    </div>
-
-    </section>-->
         <div class="stred">
             <a href="?c=portfolio&a=addProject" class="mbtn stred">Pridat portfólio</a>
         </div>

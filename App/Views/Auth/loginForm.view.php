@@ -10,7 +10,7 @@
 
                     <?= $data['error']?>
                 </div>
-            <?php }?>
+            <?php } ?>
             <form method="post" action="?c=auth&a=login">
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Email</label>

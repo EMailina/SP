@@ -1,4 +1,5 @@
 <?php /** @var Array $data */ ?>
+<script src="public/scripty.js"></script>
 <main>
 <div class="navigation-space"></div>
 <section class="contact">

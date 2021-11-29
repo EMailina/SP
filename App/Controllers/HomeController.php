@@ -28,7 +28,7 @@ class HomeController extends AControllerRedirect
             ]);
     }
 
-    public function contact()
+  /*  public function contact()
     {
         return $this->html(
             []
@@ -40,7 +40,7 @@ class HomeController extends AControllerRedirect
         return $this->html(
             []
         );
-    }
+    }*/
 }
 /*
     public function portfolio()

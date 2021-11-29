@@ -42,7 +42,7 @@
                         <div class="form-floating">
                 <textarea name="text" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
                           style="height: 100px"><?= $p = \App\Models\Project::getOne($_GET['id'])->getText(); ?></textarea>
-                            <label for="floatingTextarea2">Comments</label>
+                            <label for="floatingTextarea2">Popis</label>
                         </div>
                     </div>
                 </div>
@@ -98,29 +98,7 @@
             <?php } ?>
         </div>
 
-            <!--</section>
-    <div class="container">
-        <div class="row">
-            <div class="d-flex justify-content-start flex-wrap">
-                <?php /*foreach ($data['projectImages'] as $projectImage) { */ ?>
 
-                    <div class="card" style="width: 18rem; margin: 5px">
-
-                        <img src="<? /*= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() */ ?>"
-                             class="card-img-top" alt="...">
-
-                        <div class="card-body ">
-                            <? /*=$projectImage->getName()*/ ?>
-
-
-                        </div>
-                    </div>
-                <?php /*} */ ?>
-            </div>
-        </div>
-    </div>
-
-    </section>-->
     </section>
     <section>
         <div class="row">

@@ -59,7 +59,7 @@ class AuthController extends AControllerRedirect
         $registered = Auth::register($username,$password,$firstname,$lastname);
 
         if ($registered == true) {
-            $this->redirect("home");
+            $this->redirect("portfolio",'moje',['successReg' => "Úspešne ste sa registrovali"]);
         }else{
             $this->redirect("auth", "registerForm", ['error' => "takyto login uz existuje"]);
         }
