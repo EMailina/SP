@@ -32,7 +32,7 @@
                 </div>
                 <div id="warningHeslo" class="alert alert-warning alert-dismissible fade show" role="alert">
                     <div id="info">
-
+                        Heslo neobsahuje veľké písmeno!
 
                     </div>
                 </div>

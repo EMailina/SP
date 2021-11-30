@@ -35,19 +35,19 @@
         <i class="fas fa-bars"></i>
     </div>
     <ul class="navigation">
-        <li><a class="<?= $_GET['c'] == "home"?"aktivne":"" ?>" href="?c=home"> <!--class="aktivne"-->Domov</a></li>
-        <li><a class="<?= $_GET['c'] == "about"?"aktivne":"" ?>" href="?c=about&a=about">O nás</a></li>
-        <li><a class="<?= $_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] == "portfolio"||$_GET['a']== "ukazkaProjektu"?"aktivne":"":"" ?>" href="?c=portfolio&a=portfolio">Portfólio</a></li>
+        <li><a class="<?= !isset($_GET['c'])||$_GET['c'] == "home"?"aktivne":"" ?>" href="?c=home"> <!--class="aktivne"-->Domov</a></li>
+        <li><a class="<?= isset($_GET['c'])?$_GET['c'] == "about"?"aktivne":"":"" ?>" href="?c=about&a=about">O nás</a></li>
+        <li><a class="<?= isset($_GET['c'])?$_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] == "portfolio"||$_GET['a']== "ukazkaProjektu"?"aktivne":"":"":"" ?>" href="?c=portfolio&a=portfolio">Portfólio</a></li>
         <?php if (\App\Auth::isLogged()){?>
-            <li><a class="<?= $_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] != "portfolio"&&$_GET['a'] != "ukazkaProjektu"?"aktivne":"":"" ?>" href="?c=portfolio&a=moje">Moje</a></li>
+            <li><a class="<?= isset($_GET['c'])?$_GET['c'] == "portfolio"&&isset($_GET['a'])?$_GET['a'] != "portfolio"&&$_GET['a'] != "ukazkaProjektu"?"aktivne":"":"":"" ?>" href="?c=portfolio&a=moje">Moje</a></li>
         <?php } ?>
         <!--<li><a href="">Pre firmy</a></li>-->
-        <li><a  class="<?= $_GET['c'] == "contact"?"aktivne":"" ?>" href="?c=contact&a=contact">Kontakt</a></li>
+        <li><a  class="<?= isset($_GET['c'])?$_GET['c'] == "contact"?"aktivne":"":"" ?>" href="?c=contact&a=contact">Kontakt</a></li>
         <?php if (\App\Auth::isLogged()){?>
             <li><a class="moj-link" href="?c=auth&a=logout">Logout</a></li>
 
         <?php } else { ?>
-            <li><a class="<?= $_GET['c'] == "auth"?"aktivne":"" ?>" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a></li>
+            <li><a class="<?= isset($_GET['c'])?$_GET['c'] == "auth"?"aktivne":"":"" ?>" href="<?= \App\Config\Configuration::LOGIN_URL ?>">Login</a></li>
 
         <?php } ?>
     </ul>
