@@ -7,6 +7,7 @@ use App\Config\Configuration;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Models\ProjectImage;
+use App\Models\Rating;
 
 class Portfolio
 {
@@ -35,7 +36,8 @@ class Portfolio
         }
     }
 
-    public static function deleteProject($id){
+    public static function deleteProject($id)
+    {
         if ($id != null) {
             $projekt = Project::getOne($id);
             $obrazky = ProjectImage::getAll("id_project = '" . $id . "'");
@@ -50,7 +52,7 @@ class Portfolio
 
             $projekt->delete();
 
-           return true;
+            return true;
         } else {
             return 'Nepodarilo sa vymazať projekt.';
         }
@@ -96,6 +98,25 @@ class Portfolio
         }
     }
 
+    public static function addRating($hodnota)
+    {
+        if ($hodnota != null) {
+            $found = Rating::getAll('id_user like "' . $_SESSION['id'] . '" and id_project like "' . $_GET['id'] . '"');
+            if ($found == null) {
+                $rating = new Rating(id_project: $_GET['id'], id_user: $_SESSION['id'], rating: intval($hodnota));
+                $rating->save();
+                return true;
+            } else {
+                foreach ($found as $rating) {
+                    $rating->setRating(intval($hodnota));
+                    $rating->save();
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static function updateProject($name, $text): bool|string
     {
         if ($name != null && $name != "") {
@@ -109,5 +130,24 @@ class Portfolio
         }
     }
 
+    /**
+     * @return float
+     * @throws \Exception
+     */
+    public static function getPriemerRating(): float|string
+    {
+        $rating = Rating::getAll('id_project like "' . $_GET['id'] . '"');
+        $sum = 0;
+        $pocet = 0;
+        foreach ($rating as $hodnota) {
+            $sum += $hodnota->getRating();
+            $pocet += 1;
+        }
+        if ($pocet == 0) {
+            return "Zatiaľ nehodnotené";
+        }
+        return number_format((float)($sum / $pocet), 2, '.', '');
+
+    }
 
 }

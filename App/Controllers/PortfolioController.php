@@ -9,6 +9,7 @@ use App\Config\Configuration;
 use App\Models\Comment;
 use App\Models\Project;
 use App\Models\ProjectImage;
+use App\Models\Rating;
 use App\Models\Registration;
 use App\Portfolio;
 use http\Client\Curl\User;
@@ -66,9 +67,18 @@ class PortfolioController extends AControllerRedirect
     {
         $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
         $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
+        if (Auth::isLogged())
+            $rating = Rating::getAll('id_user like "' . $_SESSION['id'] . '" and id_project like "' . $_GET['id'] . '"');
+        else
+            $rating=0;
+        if ($rating != null)
+            $rating = $rating[0]->getRating();
+
         return $this->html(
             [
-                'projectImages' => $projectImages, 'comments' => $comments, 'id' => $this->request()->getValue('id'), 'error' => $this->request()->getValue('error')
+                'projectImages' => $projectImages, 'comments' => $comments, 'id' => $this->request()->getValue('id'),
+                'error' => $this->request()->getValue('error'),
+                'rating' => $rating
             ]);
 
     }
@@ -130,8 +140,6 @@ class PortfolioController extends AControllerRedirect
                 $this->redirect('portfolio', 'addProject', ['error' => $hodnota]);
             }
         }
-
-
     }
 
 
@@ -183,6 +191,29 @@ class PortfolioController extends AControllerRedirect
             } else {
                 $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Nastala chyba s komentárom.']);
             }
+        }
+    }
+
+    public function addRating()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Pre hodnotenie sa musite prihlasit']);
+        } else {
+            $hodnota = $_GET['rating'];
+
+            $podariloSa = Portfolio::addRating($hodnota);
+            if ($podariloSa === true) {
+                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'rating' => intval($hodnota)]);
+            } else {
+                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id']]);
+
+            }
+            /*if ($hodnota === true) {
+                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id']]);
+
+            } else {
+                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Nastala chyba s komentárom.']);
+            }*/
         }
     }
 }

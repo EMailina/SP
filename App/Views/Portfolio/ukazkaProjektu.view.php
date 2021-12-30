@@ -1,14 +1,6 @@
 <?php /** @var Array $data */ ?>
 <main>
-    <!--<section class="portfolio">
-    <div class="portfolio-grid">
-        <?php /*foreach ($data['projects'] as $project) { */ ?>
-        <div class="box">
-            <img src="<? /*= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() */ ?>" alt="Obrazok loga">
-            <div class="detail"><? /*= $project->getName() */ ?></div>
-        </div>
-        <?php /*} */ ?>
-    </div>-->
+
 
     <section class="portfolio">
         <div class="container">
@@ -21,9 +13,9 @@
 
             <h2> <?= $p = \App\Models\Project::getOne($data['id'])->getName(); ?></h2>
             <p><?= $p = \App\Models\Project::getOne($data['id'])->getText(); ?></p>
-            <?php if($data['projectImages'] == null){?>
+            <?php if ($data['projectImages'] == null) { ?>
                 <p>Portfólio je zatial prázdne.</p>
-            <?php }?>
+            <?php } ?>
 
             <div class="portfolio-grid">
                 <?php foreach ($data['projectImages'] as $projectImage) { ?>
@@ -37,12 +29,41 @@
         </div>
 
     </section>
+
+
+    <section class="portfolio">
+
+
+        <h2>Hodnotenie</h2>
+        <p>Priemerné hodnotenie: <?= \App\Portfolio::getPriemerRating() ?>
+        </p>
+        <!--kod hviezdiciek mierne upraveny (zdroj) = https://codepen.io/GeoffreyCrofte/pen/jEkBL-->
+        <?php if (\App\Auth::isLogged()) { ?>
+
+            <div class="rating rating2">
+                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 5) ? "stars" : "") : "" ?>"
+                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=5>" title="Give 5 stars">★</a>
+                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 4) ? "stars" : "") : "" ?>"
+                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=4>" title="Give 4 stars">★</a>
+                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 3) ? "stars" : "") : "" ?>"
+                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=3>" title="Give 3 stars">★</a>
+                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 2) ? "stars" : "") : "" ?>"
+                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=2>" title="Give 2 stars">★</a>
+                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 1) ? "stars" : "") : "" ?>"
+                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=1>" title="Give 1 star">★</a>
+            </div>
+            <?php
+        } ?>
+
+    </section>
+
+
     <section>
 
         <div class="container">
             <h2>Komentáre</h2>
-                <div class="card-deck">
-                    <?php foreach ($data['comments'] as $comments) { ?>
+            <div class="card-deck">
+                <?php foreach ($data['comments'] as $comments) { ?>
                     <div class="card">
 
                         <div class="card-body">
@@ -52,11 +73,11 @@
                                         class="text-muted"><?= $comments->getAuthor() ?></small></p>
                         </div>
                     </div>
-                    <?php } ?>
-                </div>
-            <?php if($data['comments'] == null){?>
+                <?php } ?>
+            </div>
+            <?php if ($data['comments'] == null) { ?>
                 <p>Zatiaľ bez komentárov</p>
-            <?php }?>
+            <?php } ?>
 
 
             <form method="post" enctype="multipart/form-data"
@@ -64,10 +85,11 @@
 
 
                 <div class="input-group mb-3">
-                    <input name="comment" type="text" class="form-control" placeholder="Komentár" aria-label="Recipient's username"
+                    <input name="comment" type="text" class="form-control" placeholder="Komentár"
+                           aria-label="Recipient's username"
                            aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary"  type="submit">uverejniť</button>
+                        <button class="btn btn-outline-secondary" type="submit">uverejniť</button>
                     </div>
                 </div>
 

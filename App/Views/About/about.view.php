@@ -14,6 +14,12 @@
             webdizajnu.
         </p>
         <p>
+            Okrem klasických zákazok sa snažíme inšpirovať iných, nových aj skúsených dizajnérov portfóliom, ktoré možu
+            u nás na stránke zdielať a ostatný sa k nim môžu vyjadriť, podporiť alebo skúsiť pridať tipy, ako sa
+            zlepšiť. Ak sa teda chcete prezentovať na nejakej stránke dostupnej dizajnérskej komunite, tá naša by pre
+            Vás mohla byť tá pravá.
+        </p>
+        <p>
             Chceme, aby sa aj naši zákazníci a ich projekty posúvali neustále vpred. S každým spokojným klientom
             rastieme aj
             my sami. Preto nám nestačí tvoriť príťažlivé grafiky, obaly, či weby. Zameriavame sa na výsledok. Tvoríme

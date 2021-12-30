@@ -23,14 +23,13 @@
             služieb tak, aby sme vyhoveli najaktuálnejším trendom v oblasti grafického dizajnu, online marketingu či webdizajnu.
         </p>
         <p>
-            Chceme, aby sa aj naši zákazníci a ich projekty posúvali neustále vpred. S každým spokojným klientom rastieme aj
-            my sami. Preto nám nestačí tvoriť príťažlivé grafiky, obaly, či weby. Zameriavame sa na výsledok. Tvoríme
-            dizajn na úspešné internetové stránky a eshopy.
+            Okrem klasických zákazok sa snažíme inšpirovať iných, nových aj skúsených dizajnérov portfóliom, ktoré možu
+            u nás na stránke zdielať a ostatný sa k nim môžu vyjadriť, podporiť alebo skúsiť pridať tipy, ako sa
+            zlepšiť. Ak sa teda chcete prezentovať na nejakej stránke dostupnej dizajnérskej komunite, tá naša by pre
+            Vás mohla byť tá pravá...
         </p>
 
-        <p>Aj kým Vy čítate tento text, my usilovne pracujeme pre klientov, ktorým pomáhame dosahovať stanovené ciele!
-            Dôraz kladieme na kvalitné riešenia a pomáhame pri vzniku značiek s veľkým Z, pričom využívame naše skilli, cit
-            pre dizajn a úspech.</p>
+
         <div class="stred">
             <a href="?c=about&a=about" class="mbtn stred">Viac o nás</a>
         </div>

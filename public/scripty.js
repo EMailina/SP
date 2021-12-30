@@ -11,6 +11,16 @@ function successRegistration(text, email) {
     swal("Skvelé", text, "success");
 }
 
+
+function rating(hodnota){
+
+if(hodnota === 5)
+    document.getElementsByClassName('hviezda')[0].classList.toggle('stars5');
+    document.getElementsByClassName('hviezda')[1].classList.toggle('stars5');
+    document.getElementsByClassName('hviezda')[2].classList.toggle('stars5');
+    document.getElementsByClassName('hviezda')[3].classList.toggle('stars5');
+    document.getElementsByClassName('hviezda')[4].classList.toggle('stars5');
+}
 //aktivne stranky
 /*let stranky = document.getElementsByClassName("navigation")[0];
 let linky = stranky.getElementsByClassName("moj-link");
