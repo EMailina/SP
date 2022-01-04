@@ -50,6 +50,11 @@ class Portfolio
                 $comment->delete();
             }
 
+            $ratings = Rating::getAll("id_project = '" . $id . "'");
+            foreach ($ratings as $rating) {
+                $rating->delete();
+            }
+
             $projekt->delete();
 
             return true;
@@ -123,6 +128,14 @@ class Portfolio
             $p = Project::getOne($_GET['id']);
             $p->setName($name);
             $p->setText($text);
+            if (isset($_FILES['projectImage'])) {
+
+                if ($_FILES["projectImage"]["error"] == UPLOAD_ERR_OK) {
+                    $nameImg = date('Y-m-d-H-i-s_') . $_FILES['projectImage']['name'];
+                    move_uploaded_file($_FILES['projectImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
+                    $p->setImage($nameImg);
+                }
+            }
             $p->save();
             return true;
         } else {
@@ -147,7 +160,27 @@ class Portfolio
             return "Zatiaľ nehodnotené";
         }
         return number_format((float)($sum / $pocet), 2, '.', '');
+    }
 
+    public static function upravObrazok($id, $name)
+    {
+        if ($id != null) {
+            $found = ProjectImage::getOne($id);
+            $found->setName($name);
+
+            if (isset($_FILES['titleImage'])) {
+
+                if ($_FILES["titleImage"]["error"] == UPLOAD_ERR_OK) {
+                    $nameImg = date('Y-m-d-H-i-s_') . $_FILES['titleImage']['name'];
+                    move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
+                    $found->setImage($nameImg);
+                }
+            }
+            $found->save();
+            return true;
+        } else {
+            return 'Nastala chyba pri hladaní obrázka';
+        }
     }
 
 }
