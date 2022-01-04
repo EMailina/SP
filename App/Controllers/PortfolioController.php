@@ -70,7 +70,7 @@ class PortfolioController extends AControllerRedirect
         if (Auth::isLogged())
             $rating = Rating::getAll('id_user like "' . $_SESSION['id'] . '" and id_project like "' . $_GET['id'] . '"');
         else
-            $rating=0;
+            $rating = 0;
         if ($rating != null)
             $rating = $rating[0]->getRating();
 
@@ -150,7 +150,10 @@ class PortfolioController extends AControllerRedirect
         } else {
             $name = $this->request()->getValue('name');
             $text = $this->request()->getValue('text');
+            $img = $this->request()->getValue('titleImage');
+
             $hodnota = Portfolio::updateProject($name, $text);
+
             if ($hodnota === true) {
                 $this->redirect('portfolio', 'mojProjektUprava', ['id' => $_GET['id'], 'success' => 'Vaše zmeny sa uložili.']);
 
@@ -216,4 +219,41 @@ class PortfolioController extends AControllerRedirect
             }*/
         }
     }
+
+    public function aktualizujObrazok()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
+        $id = $this->request()->getValue('id');
+        $found = ProjectImage::getOne($id);
+        return $this->html(
+            [
+                'project' => $found, 'success' => $this->request()->getValue('success'),
+                'error' => $this->request()->getValue('error'),
+
+            ]);
+
+
+    }
+
+    public function aktualizujObrazokVPortfoliu()
+    {
+        if (!Auth::isLogged()) {
+            $this->redirect('home');
+        }
+        $id = $this->request()->getValue('id');
+        $name = $this->request()->getValue('name');
+
+        $podariloSa = Portfolio::upravObrazok($id, $name);
+
+        if ($podariloSa === true) {
+            $this->redirect('portfolio', 'aktualizujObrazok', ['id' => $id, 'success' => 'Obrazok sa aktualizoval']);
+        } else {
+            $this->redirect('portfolio', 'aktualizujObrazok', ['error' => $podariloSa]);
+
+        }
+
+    }
+
 }

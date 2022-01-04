@@ -87,7 +87,7 @@ class Registration extends \App\Core\Model
     }
 
     /**
-     * @param string $surname
+     * @param string $lastname
      */
     public function setLastname(string $lastname): void
     {

@@ -109,7 +109,7 @@
 
         <a href="<?= \App\Config\Configuration::LOGIN_URL ?>" class="mbtn">Prihláste sa</a>
         <?php }else { ?>
-            <a href="#" class="mbtn"><?= \App\Auth::getName() ?></a>
+            <a href="?c=auth&a=updateProfileForm" class="mbtn"><?= \App\Auth::getName() ?></a>
          <?php }?>
     </div>
 

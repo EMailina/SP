@@ -1,14 +1,6 @@
 <?php /** @var Array $data */ ?>
 <main>
-    <!--<section class="portfolio">
-    <div class="portfolio-grid">
-        <?php /*foreach ($data['projects'] as $project) { */ ?>
-        <div class="box">
-            <img src="<? /*= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() */ ?>" alt="Obrazok loga">
-            <div class="detail"><? /*= $project->getName() */ ?></div>
-        </div>
-        <?php /*} */ ?>
-    </div>-->
+
 
     <section class="portfolio">
         <div class="container">
@@ -25,13 +17,21 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             <?php } ?>
-            <form action="?c=portfolio&a=saveChange&id=<?= $_GET['id'] ?>" method="post">
+            <form action="?c=portfolio&a=saveChange&id=<?= $_GET['id'] ?>" enctype="multipart/form-data" method="post">
+
+
                 <div class="row g-3">
                     <div class="col-sm-10">
                         <h2> <?= $p = \App\Models\Project::getOne($_GET['id'])->getName(); ?></h2>
+                        <img src="<?= \App\Config\Configuration::UPLOAD_DIR . \App\Models\Project::getOne($_GET['id'])->getImage(); ?>">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">Titulný obrázok</label>
+                            <input name="projectImage" class="form-control" id="formFile" type="file">
+                        </div>
                         <div class="form-floating">
-                        <textarea name="name" class="form-control" placeholder="Leave a comment here"
-                                  id="floatingTextarea"><?= $p = \App\Models\Project::getOne($_GET['id'])->getName(); ?></textarea>
+
+                            <textarea name="name" class="form-control" placeholder="Leave a comment here"
+                                      id="floatingTextarea"><?= $p = \App\Models\Project::getOne($_GET['id'])->getName(); ?></textarea>
                             <label for="floatingTextarea"> Zmeniť názov</label>
                         </div>
                     </div>
@@ -55,14 +55,17 @@
     <section class="portfolio">
 
         <h2>Obrázky</h2>
-        <?php if($data['projectImages'] == null){?>
+        <?php if ($data['projectImages'] == null) { ?>
             <p>Zatiaľ bez obrázkov.</p>
 
-        <?php }?>
+        <?php } ?>
         <div class="portfolio-grid">
 
             <?php foreach ($data['projectImages'] as $projectImage) { ?>
                 <div class="box">
+                    <form action="?c=portfolio&a=aktualizujObrazok&id=<?= $projectImage->getId() ?>" method="post">
+                        <button class="btn btn-update"><i class="bi bi-arrow-repeat"></i></button>
+                    </form>
                     <form action="?c=portfolio&a=deleteImage&id=<?= $projectImage->getId() ?>" method="post">
                         <button class="btn-close" aria-label="Close"></button>
                     </form>
@@ -115,7 +118,7 @@
                         <div class="mb3">
                             <label for="validationDefault01" class="form-label">Názov</label>
                             <input name="name" type="text" class="form-control" id="validationDefault01" value=""
-                                  >
+                            >
                         </div>
 
                         <div class="mb-3">

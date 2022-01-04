@@ -11,6 +11,7 @@
     src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJbecmNE.woff2) format('woff2');
     /*unicode-range: U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200C-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;*/
 }
+
 /* latin-ext */
 @font-face {
     font-family: 'Poppins';
@@ -20,6 +21,7 @@
     src: url(https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJnecmNE.woff2) format('woff2');
     /*unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;*/
 }
+
 /* latin */
 @font-face {
     font-family: 'Poppins';
@@ -58,13 +60,15 @@ main {
     min-height: 75vh;
 }
 
-a{
+a {
     color: black;
     text-decoration: none;
 }
-a:hover{
+
+a:hover {
     color: black;
 }
+
 header {
     white-space: nowrap;
     position: fixed;
@@ -92,11 +96,35 @@ header .logo {
     top: 10px;
 
 }
-.btn-close{
+
+.btn-close {
     position: absolute;
     right: 10px;
     top: 10px;
 }
+
+.btn-update {
+    position: absolute;
+    right: 8px;
+    top: 33px;
+    font-size: 1.2em;
+
+
+    box-sizing: content-box;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em 0.25em;
+    color: #000;
+    border: 0;
+    border-radius: 0.25rem;
+    opacity: .5;
+}
+
+.btn-update:hover {
+    color: #000;
+    opacity: .75;
+}
+
 header .logoName {
     color: #fff;
     text-decoration: none;
@@ -144,16 +172,18 @@ header .navigation li a:hover {
     width: 250px;
     margin: 0 auto 1em;
     font-size: 45px;
-    overflow:hidden;
+    overflow: hidden;
 }
+
 .rating input {
     float: right;
     opacity: 0;
     position: absolute;
 }
+
 .rating a,
 .rating label {
-    float:left;
+    float: left;
     color: #aaa;
     text-decoration: none;
     -webkit-transition: color .4s;
@@ -161,18 +191,19 @@ header .navigation li a:hover {
     -o-transition: color .4s;
     transition: color .4s;
 }
+
 .rating label:hover ~ label,
 .rating input:focus ~ label,
 .rating label:hover,
 .rating a:hover,
 .rating a:hover ~ a,
 .rating a:focus,
-.rating a:focus ~ a		{
+.rating a:focus ~ a {
     color: orange;
     cursor: pointer;
 }
-.rating a.stars
-{
+
+.rating a.stars {
     color: orange;
     cursor: pointer;
 }
@@ -180,8 +211,9 @@ header .navigation li a:hover {
 .rating2 {
     direction: rtl;
 }
+
 .rating2 a {
-    float:none
+    float: none
 }
 
 
@@ -276,7 +308,8 @@ p {
 
     margin-bottom: 1em;
 }
-.red:hover{
+
+.red:hover {
     background-color: var(--red-color);
     border-color: var(--red-color);
 }
@@ -284,11 +317,13 @@ p {
 .banner .mbtn {
     margin-top: 0;
 }
+
 .mcard img {
     left: 0;
     height: 100%;
     object-fit: contain;
 }
+
 .mbtn {
     background-color: var(--red-color);
     padding: 0.3em 1em;
@@ -305,7 +340,7 @@ p {
     background-color: var(--red-color);
     border-color: var(--red-color);
     padding: 0.3em 3em;
-    color:white;
+    color: white;
 }
 
 .portfolio {
@@ -382,6 +417,10 @@ img {
     transform: scale(1.1);
 }
 
+.portfolio .container img {
+    max-width: 600px;
+    max-height: 200px;
+}
 
 .portfolio .box .detail {
     text-align: center;
@@ -554,9 +593,11 @@ h1 {
     font-style: italic;
     margin-bottom: 50px;
 }
-#warningHeslo{
-/*display: none;*/
+
+#warningHeslo {
+    /*display: none;*/
 }
+
 .menuIcon {
     position: absolute;
     float: right;
@@ -629,7 +670,7 @@ h1 {
     font-size: 0.8em;
 }
 
-.col-md-2 img{
+.col-md-2 img {
     width: 100%;
     height: 100%;
     padding: 5px;
@@ -773,6 +814,10 @@ h1 {
 
 @media (max-width: 1000px) {
 
+    .portfolio .container img {
+        max-width: 400px;
+    }
+
     .contact .container {
         flex-direction: column;
     }
@@ -819,6 +864,10 @@ h1 {
 @media (max-width: 800px) {
     p {
         margin-left: 0;
+    }
+
+    .portfolio .container img {
+        max-width: 400px;
     }
 
     .menuIcon {
