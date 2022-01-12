@@ -46,5 +46,12 @@
             <a href="?c=portfolio&a=addProject" class="mbtn stred">Pridat portfólio</a>
         </div>
     </section>
+    <section class="portfolio">
+        <h2>Moj profil - <?= \App\Auth::getName() ?></h2>
+        <div class="stred">
+            <a href="?c=auth&a=updateProfileForm" class="mbtn stred">Upraviť profil</a>
+        </div>
+
+    </section>
 </main>
 

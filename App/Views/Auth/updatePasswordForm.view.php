@@ -23,7 +23,7 @@
 
                     <div class="col-md-8">
                         <label for="inputPassword4" class="form-label">Staré Heslo</label>
-                        <input name="passwordOld" value="" type="password" class="form-control" id="passwd" required>
+                        <input name="passwordOld" value="" type="password" class="form-control" id="passwd1" required>
                     </div>
 
                     <div class="col-md-8">

@@ -13,14 +13,14 @@ class Auth
 
     public static function login($login, $password)
     {
-        $pr = Connection::connect()->prepare('SELECT * FROM users WHERE username like ?');
-        $pr->execute([$login]);
-        $found = $pr->fetchAll();
+        //$pr = Connection::connect()->prepare('SELECT * FROM users WHERE username like ?');
+        //$pr->execute([$login]);
+        //$found = $pr->fetchAll();
         //$found = Registration::getAll('username like "' . $login . '"');
         // $found = Registration::getAll('username like "' . @0 . '"',$login);
         //$found = Registration::getAll(['username' => $login]);
 
-
+        $found = Registration::getAll("username = ?", [ $login ]);
         if ($found != null) {
             foreach ($found as $user) {
                 //if (password_verify($password, $user->getPassword())) {
@@ -28,9 +28,9 @@ class Auth
                 $_SESSION['name'] = $user->getUsername();
                 return true;
             }*/
-                if (password_verify($password, $user['password'])) {
-                    $_SESSION['id'] = $user['id'];
-                    $_SESSION['name'] = $user['username'];
+                if (password_verify($password, $user->getPassword())) {
+                    $_SESSION['id'] = $user->getId();
+                    $_SESSION['name'] = $user->getUsername();
                     return true;
                 }
             }
