@@ -22,12 +22,12 @@
                 <form onsubmit="return hesloKontrola()" class="row g-3" action="?c=auth&a=updatePassword" method="post">
 
                     <div class="col-md-8">
-                        <label for="inputPassword4" class="form-label">Staré Heslo</label>
+                        <label for="passwd1" class="form-label">Staré Heslo</label>
                         <input name="passwordOld" value="" type="password" class="form-control" id="passwd1" required>
                     </div>
 
                     <div class="col-md-8">
-                        <label for="inputPassword4" class="form-label">Nové Heslo</label>
+                        <label for="passwd" class="form-label">Nové Heslo</label>
                         <input name="password" value="" type="password" class="form-control" id="passwd" required>
                     </div>
                     <div id="warningHeslo" class="alert alert-warning alert-dismissible fade show" role="alert">

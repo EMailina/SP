@@ -186,9 +186,9 @@ header .navigation li a:hover {
     float: left;
     color: #aaa;
     text-decoration: none;
-    -webkit-transition: color .4s;
-    -moz-transition: color .4s;
-    -o-transition: color .4s;
+    /*-webkit-transition: color .4s;*/
+    /*-moz-transition: color .4s;*/
+    /*-o-transition: color .4s;*/
     transition: color .4s;
 }
 
@@ -311,7 +311,7 @@ p {
 
 .red:hover {
     background-color: var(--red-color);
-    border-color: var(--red-color);
+    /*border-color: var(--red-color);*/
 }
 
 .banner .mbtn {
@@ -338,7 +338,7 @@ p {
 .mbtn:hover {
     transition: 0.5s;
     background-color: var(--red-color);
-    border-color: var(--red-color);
+    /*border-color: var(--red-color);*/
     padding: 0.3em 3em;
     color: white;
 }

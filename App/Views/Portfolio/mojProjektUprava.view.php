@@ -23,10 +23,10 @@
                 <div class="row g-3">
                     <div class="col-sm-10">
                         <h2> <?= $p = \App\Models\Project::getOne($_GET['id'])->getName(); ?></h2>
-                        <img src="<?= \App\Config\Configuration::UPLOAD_DIR . \App\Models\Project::getOne($_GET['id'])->getImage(); ?>">
+                        <img alt="obrazok" src="<?= \App\Config\Configuration::UPLOAD_DIR . \App\Models\Project::getOne($_GET['id'])->getImage(); ?>">
                         <div class="mb-3">
-                            <label for="formFile" class="form-label">Titulný obrázok</label>
-                            <input name="projectImage" class="form-control" id="formFile" type="file">
+                            <label for="form1" class="form-label">Titulný obrázok</label>
+                            <input name="projectImage" class="form-control" type="file" id="form1">
                         </div>
                         <div class="form-floating">
 
@@ -48,9 +48,10 @@
                 </div>
                 <button type="submit" class="mbtn">Potvrdiť zmeny</button>
 
-        </div>
+
 
         </form>
+        </div>
     </section>
     <section class="portfolio">
 
@@ -70,7 +71,7 @@
                     <button onclick="deleteFromPortfolio(<?= $projectImage->getId() ?>,this)" class="btn-close"
                             aria-label="Close"></button>
                     <!--</form>-->
-                    <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() ?>"
+                    <img  src="<?= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() ?>"
                          alt="Obrazok loga">
                     <div class="detail"><?= $projectImage->getName() ?></div>
                 </div>
@@ -114,8 +115,8 @@
                           action="?c=portfolio&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
                         <div>
                             <div class="mb-3">
-                                <label for="formFile" class="form-label">Titulný obrázok</label>
-                                <input name="titleImage" class="form-control" id="formFile" type="file">
+                                <label for="form2" class="form-label">Titulný obrázok</label>
+                                <input name="titleImage" class="form-control"  type="file" id="form2">
                             </div>
                             <div class="mb3">
                                 <label for="validationDefault01" class="form-label">Názov</label>

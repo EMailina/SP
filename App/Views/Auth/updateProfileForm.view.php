@@ -34,7 +34,7 @@
 
                     <div class="col-md-8">
                         <label for="exampleFormControlInput1" class="form-label">E-mail</label>
-                        <input name="username" type="email" class="form-control" name="login"
+                        <input name="username" type="email" class="form-control"
                                id="exampleFormControlInput1" value="<?= $data['profil']->getUsername() ?>" required>
                     </div>
 

@@ -1,5 +1,7 @@
 <?php
-namespace  App\Models;
+
+namespace App\Models;
+
 use App\Config\Configuration;
 
 class Project extends \App\Core\Model
@@ -8,7 +10,7 @@ class Project extends \App\Core\Model
         public int     $id = 0,
         public int     $user_id = 0,
         public ?string $image = null,
-        public ?string  $name = null,
+        public ?string $name = null,
         public ?string $text = null
     )
     {
@@ -16,7 +18,7 @@ class Project extends \App\Core\Model
 
     static public function setDbColumns()
     {
-        return ['id', 'image','name', 'text','user_id'];
+        return ['id', 'image', 'name', 'text', 'user_id'];
     }
 
     static public function setTableName()
@@ -122,18 +124,85 @@ class Project extends \App\Core\Model
 
     public function getUser(): ?string
     {
-        $found= Registration::getAll('id like "'.$this->user_id.'"');
+        $found = Registration::getAll('id like "' . $this->user_id . '"');
         $name = "";
-        if($found != null){
+        if ($found != null) {
             foreach ($found as $user) {
                 $name = $user->getFirstname() . " " . $user->getLastname();
-               
+
             }
 
         }
         return $name;
     }
 
+    public function getPocetRatingov(): int
+    {
+        $ratingy = Rating::getAll('project_id = ?', [$this->getId()]);
+        $pocet = 0;
+        foreach ($ratingy as $rating) {
+            if ($rating->getIdUser() != $_SESSION['id']) {
+                $pocet += 1;
+            }
 
+        }
+        return $pocet;
+
+    }
+
+    public function getSumuRatingov()
+    {
+        $ratingy = Rating::getAll('project_id = ?', [$this->getId()]);
+        $sum = 0;
+        foreach ($ratingy as $rating) {
+            if ($rating->getIdUser() != $_SESSION['id']) {
+                $sum += $rating->getRating();
+            }
+        }
+        return $sum;
+    }
+
+    public function getPocetVsetkychRatingov()
+    {
+        $ratingy = Rating::getAll('project_id = ?', [$this->getId()]);
+        $pocet = 0;
+        foreach ($ratingy as $rating) {
+
+            $pocet += 1;
+
+
+        }
+        return $pocet;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function getPriemerRating(): float|string
+    {
+        $rating = Rating::getAll("project_id like ?",[ $_GET['id']] );
+        $sum = 0;
+        $pocet = 0;
+        foreach ($rating as $hodnota) {
+            $sum += $hodnota->getRating();
+            $pocet += 1;
+        }
+        if ($pocet == 0) {
+            return "Zatiaľ nehodnotené";
+        }
+        return number_format((float)($sum / $pocet), 2, '.', '');
+    }
+
+    public function getSumuVsetkychRatingov()
+    {
+        $ratingy = Rating::getAll('project_id = ?', [$this->getId()]);
+        $sum = 0;
+        foreach ($ratingy as $rating) {
+
+            $sum += $rating->getRating();
+
+        }
+        return $sum;
+    }
 
 }

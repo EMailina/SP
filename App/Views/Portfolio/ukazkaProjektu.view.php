@@ -35,22 +35,29 @@
 
 
         <h2>Hodnotenie</h2>
-        <p>Priemerné hodnotenie: <?= \App\Portfolio::getPriemerRating() ?>
+        <p>Priemerné hodnotenie:
+            <span id="rating"><?= \App\Models\Project::getOne($data['id'])->getPriemerRating();?>
+            </span>
         </p>
         <!--kod hviezdiciek mierne upraveny (zdroj) = https://codepen.io/GeoffreyCrofte/pen/jEkBL-->
         <?php if (\App\Auth::isLogged()) { ?>
 
             <div class="rating rating2">
-                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 5) ? "stars" : "") : "" ?>"
-                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=5>" title="Give 5 stars">★</a>
-                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 4) ? "stars" : "") : "" ?>"
-                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=4>" title="Give 4 stars">★</a>
-                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 3) ? "stars" : "") : "" ?>"
-                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=3>" title="Give 3 stars">★</a>
-                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 2) ? "stars" : "") : "" ?>"
-                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=2>" title="Give 2 stars">★</a>
-                <a class="<?= ($data['rating'] != null) ? (($data['rating'] >= 1) ? "stars" : "") : "" ?>"
-                   href="?c=portfolio&a=addRating&id=<?= $data['id'] ?>&rating=1>" title="Give 1 star">★</a>
+                <a id="star5" class="<?= ($data['rating'] != null) ? (($data['rating'] >= 5) ? "stars" : "") : "" ?>"
+                   onclick="pridajRating(<?= $data['id'] ?>,5,<?= \App\Models\Project::getOne($data['id'])->getPocetRatingov() ?>,<?= \App\Models\Project::getOne($data['id'])->getSumuRatingov() ?>)"
+                   title="Give 5 stars">★</a>
+                <a id="star4" class="<?= ($data['rating'] != null) ? (($data['rating'] >= 4) ? "stars" : "") : "" ?>"
+                   onclick="pridajRating(<?= $data['id'] ?>,4,<?= \App\Models\Project::getOne($data['id'])->getPocetRatingov() ?>,<?= \App\Models\Project::getOne($data['id'])->getSumuRatingov() ?>)"
+                   title="Give 4 stars">★</a>
+                <a id="star3" class="<?= ($data['rating'] != null) ? (($data['rating'] >= 3) ? "stars" : "") : "" ?>"
+                   onclick="pridajRating(<?= $data['id'] ?>,3,<?= \App\Models\Project::getOne($data['id'])->getPocetRatingov() ?>,<?= \App\Models\Project::getOne($data['id'])->getSumuRatingov() ?>)"
+                    title="Give 3 stars">★</a>
+                <a id="star2" class="<?= ($data['rating'] != null) ? (($data['rating'] >= 2) ? "stars" : "") : "" ?>"
+                   onclick="pridajRating(<?= $data['id'] ?>,2,<?= \App\Models\Project::getOne($data['id'])->getPocetRatingov() ?>,<?= \App\Models\Project::getOne($data['id'])->getSumuRatingov() ?>)"
+                    title="Give 2 stars">★</a>
+                <a id="star1" class="<?= ($data['rating'] != null) ? (($data['rating'] >= 1) ? "stars" : "") : "" ?>"
+                   onclick="pridajRating(<?= $data['id'] ?>,1,<?= \App\Models\Project::getOne($data['id'])->getPocetRatingov() ?>,<?= \App\Models\Project::getOne($data['id'])->getSumuRatingov() ?>)"
+                   title="Give 1 star">★</a>
             </div>
             <?php
         } ?>
@@ -64,7 +71,7 @@
             <h2>Komentáre</h2>
             <div id="cardDeck" class="card-deck">
                 <?php foreach ($data['comments'] as $comments) { ?>
-                    <div id="card" class="card">
+                    <div class="card">
 
                         <div class="card-body">
 
@@ -82,14 +89,16 @@
 
             <form id="form" method="post" enctype="multipart/form-data">
 
-                <!--?c=portfolio&a=addComment&id=--><? /*= $data['id'] */ ?>
+
+
                 <div class="input-group mb-3">
                     <input id="komentar" name="comment" type="text" class="form-control" placeholder="Komentár"
-                           aria-label="Recipient's username"
-                           aria-describedby="basic-addon2">
+                           aria-label="Recipient's username">
                     <div class="input-group-append">
-                                <button class="btn btn-outline-secondary"onclick="pridajKomentar(<?= $data['id']?>, '<?=\App\Models\Registration::getOne($_SESSION['id'])->getNameAndLastName() ?>')"
-                                        type="button">uverejniť</button>
+                        <button class="btn btn-outline-secondary"
+                                onclick="pridajKomentar(<?= $data['id'] ?>, '<?= \App\Models\Registration::getOne($_SESSION['id'])->getNameAndLastName() ?>')"
+                                type="button">uverejniť
+                        </button>
                     </div>
                 </div>
 

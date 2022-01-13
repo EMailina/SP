@@ -89,10 +89,10 @@ class AuthController extends AControllerRedirect
         $password = $this->request()->getValue('password');
         $registered = Auth::register($username, $password, $firstname, $lastname);
 
-        if ($registered == true) {
+        if ($registered === true) {
             $this->redirect("portfolio", 'moje', ['successReg' => "Úspešne ste sa registrovali"]);
         } else {
-            $this->redirect("auth", "registerForm", ['error' => "takyto login uz existuje"]);
+            $this->redirect("auth", "registerForm", ['error' => $registered]);
         }
 
     }
@@ -103,6 +103,7 @@ class AuthController extends AControllerRedirect
             $username = $this->request()->getValue('username');
             $firstname = $this->request()->getValue('firstname');
             $lastname = $this->request()->getValue('surname');
+
 
             $hodnota = Auth::updateProfile($username, $firstname, $lastname);
             if ($hodnota === true) {
@@ -146,5 +147,6 @@ class AuthController extends AControllerRedirect
             }
         }
     }
+
 
 }

@@ -57,13 +57,7 @@
     <script src="public/komentare.js" ></script>
 </header>
 <?= $contentHTML ?>
-<!--<div class="container">
-    <div class="row mt-2">
-        <div class="col">
 
-        </div>
-    </div>
-</div>-->
 
 
 <footer class="footer-body">
