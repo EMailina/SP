@@ -27,17 +27,20 @@
         <div class="portfolio-grid">
             <?php foreach ($data['projects'] as $project) { ?>
 
-                <a href="?c=portfolio&a=mojProjektUprava&id=<?= $project->id ?>">
+
 
                     <div class="box">
-                        <form action="?c=portfolio&a=deleteProject&id=<?= $project->getId() ?>" method="post">
-                            <button class="btn-close" aria-label="Close"></button>
-                        </form>
+                        <!--<form action="?c=portfolio&a=deleteProject&id=<? /*= $project->getId() */ ?>" method="post">-->
+                        <button onclick="deletePortfolio(<?= $project->getId() ?>,this)" class="btn-close"
+                                aria-label="Close"></button>
+                        <a href="?c=portfolio&a=mojProjektUprava&id=<?= $project->id ?>" class="link-box">
+                        <!--</form>-->
                         <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $project->getImage() ?>"
                              alt="Obrazok loga">
                         <div class="detail"><?= $project->getName() ?></div>
+                        </a>
                     </div>
-                </a>
+
             <?php } ?>
         </div>
 

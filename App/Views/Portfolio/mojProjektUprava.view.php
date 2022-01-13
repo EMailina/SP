@@ -66,9 +66,10 @@
                     <form action="?c=portfolio&a=aktualizujObrazok&id=<?= $projectImage->getId() ?>" method="post">
                         <button class="btn btn-update"><i class="bi bi-arrow-repeat"></i></button>
                     </form>
-                    <form action="?c=portfolio&a=deleteImage&id=<?= $projectImage->getId() ?>" method="post">
-                        <button class="btn-close" aria-label="Close"></button>
-                    </form>
+                    <!-- <form action="?c=portfolio&a=deleteImage&id=<? /*= $projectImage->getId() */ ?>" method="post">-->
+                    <button onclick="deleteFromPortfolio(<?= $projectImage->getId() ?>,this)" class="btn-close"
+                            aria-label="Close"></button>
+                    <!--</form>-->
                     <img src="<?= \App\Config\Configuration::UPLOAD_DIR . $projectImage->getImage() ?>"
                          alt="Obrazok loga">
                     <div class="detail"><?= $projectImage->getName() ?></div>
@@ -104,29 +105,31 @@
 
     </section>
     <section>
-        <div class="row">
-            <div class="col-sm-4 offset-sm-4">
-                <h2 style="text-align: center">Pridanie obrázka</h2>
-                <form method="post" enctype="multipart/form-data"
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 offset-sm-4">
+                    <h2 style="text-align: center">Pridanie obrázka</h2>
+                    <form method="post" enctype="multipart/form-data"
 
-                      action="?c=portfolio&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
-                    <div>
-                        <div class="mb-3">
-                            <label for="formFile" class="form-label">Titulný obrázok</label>
-                            <input name="titleImage" class="form-control" id="formFile" type="file">
-                        </div>
-                        <div class="mb3">
-                            <label for="validationDefault01" class="form-label">Názov</label>
-                            <input name="name" type="text" class="form-control" id="validationDefault01" value=""
-                            >
+                          action="?c=portfolio&a=uploadIntoProject&id=<?= $_GET['id'] ?>">
+                        <div>
+                            <div class="mb-3">
+                                <label for="formFile" class="form-label">Titulný obrázok</label>
+                                <input name="titleImage" class="form-control" id="formFile" type="file">
+                            </div>
+                            <div class="mb3">
+                                <label for="validationDefault01" class="form-label">Názov</label>
+                                <input name="name" type="text" class="form-control" id="validationDefault01" value=""
+                                >
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="submit" class="mbtn stred">Pridať</button>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <button type="submit" class="mbtn stred">Pridať</button>
-                        </div>
-                    </div>
-
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </section>

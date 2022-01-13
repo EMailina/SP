@@ -6,7 +6,7 @@ class ProjectImage extends \App\Core\Model
 {
     public function __construct(
         public int     $id = 0,
-        public int     $id_project = 0,
+        public int     $project_id = 0,
         public ?string $image = null,
  public ?string  $name = null
     )
@@ -15,7 +15,7 @@ class ProjectImage extends \App\Core\Model
 
     static public function setDbColumns()
     {
-        return ['id', 'id_project', 'image', 'name'];
+        return ['id', 'project_id', 'image', 'name'];
     }
 
     static public function setTableName()
@@ -44,15 +44,15 @@ class ProjectImage extends \App\Core\Model
      */
     public function getIdProject(): int
     {
-        return $this->id_project;
+        return $this->project_id;
     }
 
     /**
-     * @param int $id_project
+     * @param int 4project_id
      */
-    public function setIdProject(int $id_project): void
+    public function setIdProject(int $project_id): void
     {
-        $this->id_project = $id_project;
+        $this->project_id = $project_id;
     }
 
     /**

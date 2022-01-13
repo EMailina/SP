@@ -62,9 +62,9 @@
 
         <div class="container">
             <h2>Komentáre</h2>
-            <div class="card-deck">
+            <div id="cardDeck" class="card-deck">
                 <?php foreach ($data['comments'] as $comments) { ?>
-                    <div class="card">
+                    <div id="card" class="card">
 
                         <div class="card-body">
 
@@ -80,16 +80,16 @@
             <?php } ?>
 
 
-            <form method="post" enctype="multipart/form-data"
-                  action="?c=portfolio&a=addComment&id=<?= $data['id'] ?>">
+            <form id="form" method="post" enctype="multipart/form-data">
 
-
+                <!--?c=portfolio&a=addComment&id=--><? /*= $data['id'] */ ?>
                 <div class="input-group mb-3">
-                    <input name="comment" type="text" class="form-control" placeholder="Komentár"
+                    <input id="komentar" name="comment" type="text" class="form-control" placeholder="Komentár"
                            aria-label="Recipient's username"
                            aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="submit">uverejniť</button>
+                                <button class="btn btn-outline-secondary"onclick="pridajKomentar(<?= $data['id']?>, '<?=\App\Models\Registration::getOne($_SESSION['id'])->getNameAndLastName() ?>')"
+                                        type="button">uverejniť</button>
                     </div>
                 </div>
 

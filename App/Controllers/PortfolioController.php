@@ -14,6 +14,7 @@ use App\Models\Registration;
 use App\Portfolio;
 use http\Client\Curl\User;
 
+
 class PortfolioController extends AControllerRedirect
 {
     public function index()
@@ -39,7 +40,7 @@ class PortfolioController extends AControllerRedirect
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
-        $projects = Project::getAll("user_id like '" . $_SESSION['id'] . "'");
+        $projects = Project::getAll("user_id like ?",[ $_SESSION['id']] );
         return $this->html(
             [
                 'projects' => $projects, 'success' => $this->request()->getValue('success'),
@@ -54,8 +55,8 @@ class PortfolioController extends AControllerRedirect
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
-        $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
-        $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
+        $projectImages = ProjectImage::getAll("project_id = ?", [$_GET['id']]);
+        $comments = Comment::getAll("project_id = ?", [$_GET['id']]);
         return $this->html(
             [
                 'comments' => $comments, 'projectImages' => $projectImages, 'id' => $this->request()->getValue('id'), 'error' => $this->request()->getValue('error'), 'success' => $this->request()->getValue('success')
@@ -65,10 +66,10 @@ class PortfolioController extends AControllerRedirect
 
     public function ukazkaProjektu()
     {
-        $projectImages = ProjectImage::getAll("id_project = '" . $_GET['id'] . "'");
-        $comments = Comment::getAll("project_id = '" . $_GET['id'] . "'");
+        $projectImages = ProjectImage::getAll("project_id = ?", [$_GET['id']]);
+        $comments = Comment::getAll("project_id = ?", [$_GET['id']]);
         if (Auth::isLogged())
-            $rating = Rating::getAll('id_user like "' . $_SESSION['id'] . '" and id_project like "' . $_GET['id'] . '"');
+            $rating = Rating::getAll("user_id like ? and project_id like ?", [$_SESSION['id'], $_GET['id']]);
         else
             $rating = 0;
         if ($rating != null)
@@ -86,9 +87,11 @@ class PortfolioController extends AControllerRedirect
 
     public function addProject()
     {
+
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
+
         if (!Auth::isLogged()) {
             $this->redirect('home');
         }
@@ -133,12 +136,45 @@ class PortfolioController extends AControllerRedirect
         } else {
             $name = $this->request()->getValue('name');
             $text = $this->request()->getValue('text');
-            $hodnota = Portfolio::createProject($name, $text);
+            $hodnota = $this->createProject($name, $text);
             if ($hodnota === true) {
                 $this->redirect('portfolio', 'moje', ['success' => 'Portfólio úspešne vytvorené']);
             } else {
                 $this->redirect('portfolio', 'addProject', ['error' => $hodnota]);
             }
+        }
+    }
+
+    /**
+     * @param $name
+     * @param $text
+     * @return bool|string
+     * @throws \Exception
+     */
+    private function createProject(mixed $name, mixed $text)
+    {
+        if (isset($_FILES['titleImage'])) {
+            if ($_FILES["titleImage"]["error"] == UPLOAD_ERR_OK) {
+                $nameImg = date('Y-m-d-H-i-s_') . $_FILES['titleImage']['name'];
+                move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
+
+                $pocetZnakovName = strlen($name);
+                $pocetZnakovText = strlen($text);
+                if ($name != null && $text != null && $pocetZnakovName > 0 && $pocetZnakovText > 0) {
+                    $newPr = new Project(user_id: $_SESSION['id'], image: $nameImg, name: $name, text: $text);
+
+                    $newPr->save();
+
+
+                    return true;
+                } else {
+                    return 'Meno alebo text neboli zadané alebo sú krátke.';
+                }
+            } else {
+                return 'Musite pridať aj obrázok';
+            }
+        } else {
+            return 'Musíte pridať aj obrázok';
         }
     }
 
@@ -180,17 +216,27 @@ class PortfolioController extends AControllerRedirect
         }
     }
 
+    private function addComm(mixed $text)
+    {
+        if ($text != null && $text != "") {
+            $comment = new Comment(project_id: $_GET['id'], text: $text, user_id: $_SESSION['id']);
+            $comment->save();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function addComment()
     {
         if (!Auth::isLogged()) {
-            $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Pre komentovanie sa musite prihlasit']);
+            //$this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Pre komentovanie sa musite prihlasit']);
         } else {
             $text = $this->request()->getValue('comment');
 
-            $hodnota = Portfolio::addComment($text);
+            $hodnota = $this->addComm($text);
             if ($hodnota === true) {
                 $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id']]);
-
             } else {
                 $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Nastala chyba s komentárom.']);
             }
@@ -233,8 +279,6 @@ class PortfolioController extends AControllerRedirect
                 'error' => $this->request()->getValue('error'),
 
             ]);
-
-
     }
 
     public function aktualizujObrazokVPortfoliu()
@@ -255,5 +299,6 @@ class PortfolioController extends AControllerRedirect
         }
 
     }
+
 
 }

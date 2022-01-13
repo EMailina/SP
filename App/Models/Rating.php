@@ -7,8 +7,8 @@ class Rating extends \App\Core\Model
 {
     public function __construct(
         public int $id = 0,
-        public int $id_project = 0,
-        public int $id_user = 0,
+        public int $project_id = 0,
+        public int $user_id = 0,
         public int $rating = 0
     )
     {
@@ -16,7 +16,7 @@ class Rating extends \App\Core\Model
 
     static public function setDbColumns()
     {
-        return ['id', 'id_project', 'id_user', 'rating'];
+        return ['id', 'project_id', 'user_id', 'rating'];
     }
 
     static public function setTableName()
@@ -45,15 +45,15 @@ class Rating extends \App\Core\Model
      */
     public function getIdProject(): int
     {
-        return $this->id_project;
+        return $this->project_id;
     }
 
     /**
-     * @param int $id_project
+     * @param int $project_id
      */
-    public function setIdProject(int $id_project): void
+    public function setIdProject(int $project_id): void
     {
-        $this->id_project = $id_project;
+        $this->project_id = $project_id;
     }
 
     /**
@@ -61,15 +61,15 @@ class Rating extends \App\Core\Model
      */
     public function getIdUser(): int
     {
-        return $this->id_user;
+        return $this->user_id;
     }
 
     /**
-     * @param int $id_user
+     * @param int $user_id
      */
-    public function setIdUser(int $id_user): void
+    public function setIdUser(int $user_id): void
     {
-        $this->id_user = $id_user;
+        $this->user_id = $user_id;
     }
 
     /**

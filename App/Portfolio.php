@@ -13,44 +13,44 @@ class Portfolio
 {
     public static function createProject($name, $text): bool|string
     {
-        if (isset($_FILES['titleImage'])) {
-            if ($_FILES["titleImage"]["error"] == UPLOAD_ERR_OK) {
-                $nameImg = date('Y-m-d-H-i-s_') . $_FILES['titleImage']['name'];
-                move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
+        /* if (isset($_FILES['titleImage'])) {
+             if ($_FILES["titleImage"]["error"] == UPLOAD_ERR_OK) {
+                 $nameImg = date('Y-m-d-H-i-s_') . $_FILES['titleImage']['name'];
+                 move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
 
-                if ($name != null && $text != null) {
-                    $newPr = new Project(user_id: $_SESSION['id'], image: $nameImg, name: $name, text: $text);
+                 if ($name != null && $text != null) {
+                     $newPr = new Project(user_id: $_SESSION['id'], image: $nameImg, name: $name, text: $text);
 
-                    $newPr->save();
+                     $newPr->save();
 
 
-                    return true;
-                } else {
-                    return 'Meno alebo text neboli zadané.';
-                }
-            } else {
-                return 'Musite pridať aj obrázok';
-            }
-        } else {
-            return 'Musíte pridať aj obrázok';
-        }
+                     return true;
+                 } else {
+                     return 'Meno alebo text neboli zadané.';
+                 }
+             } else {
+                 return 'Musite pridať aj obrázok';
+             }
+         } else {
+             return 'Musíte pridať aj obrázok';
+         }*/
     }
 
     public static function deleteProject($id)
     {
         if ($id != null) {
             $projekt = Project::getOne($id);
-            $obrazky = ProjectImage::getAll("id_project = '" . $id . "'");
+            $obrazky = ProjectImage::getAll("project_id = ?", [$id]);
             foreach ($obrazky as $obrazok) {
                 $obrazok->delete();
             }
 
-            $comments = Comment::getAll("project_id = '" . $id . "'");
+            $comments = Comment::getAll("project_id = ?", [$id]);
             foreach ($comments as $comment) {
                 $comment->delete();
             }
 
-            $ratings = Rating::getAll("id_project = '" . $id . "'");
+            $ratings = Rating::getAll("project_id = ?", [$id] );
             foreach ($ratings as $rating) {
                 $rating->delete();
             }
@@ -72,7 +72,7 @@ class Portfolio
                 $nameImg = date('Y-m-d-H-i-s_') . $_FILES['titleImage']['name'];
                 move_uploaded_file($_FILES['titleImage']['tmp_name'], Configuration::UPLOAD_DIR . "$nameImg");
 
-                $newPrImage = new ProjectImage(id_project: $_GET['id'], image: $nameImg, name: $name);
+                $newPrImage = new ProjectImage(project_id: $_GET['id'], image: $nameImg, name: $name);
                 $newPrImage->save();
                 return true;
             }
@@ -106,9 +106,9 @@ class Portfolio
     public static function addRating($hodnota)
     {
         if ($hodnota != null) {
-            $found = Rating::getAll('id_user like "' . $_SESSION['id'] . '" and id_project like "' . $_GET['id'] . '"');
+            $found = Rating::getAll("user_id like ? and project_id like ?",[$_SESSION['id'],$_GET['id']]);
             if ($found == null) {
-                $rating = new Rating(id_project: $_GET['id'], id_user: $_SESSION['id'], rating: intval($hodnota));
+                $rating = new Rating(project_id: $_GET['id'], user_id: $_SESSION['id'], rating: intval($hodnota));
                 $rating->save();
                 return true;
             } else {
@@ -149,7 +149,7 @@ class Portfolio
      */
     public static function getPriemerRating(): float|string
     {
-        $rating = Rating::getAll('id_project like "' . $_GET['id'] . '"');
+        $rating = Rating::getAll("project_id like ?",[ $_GET['id']] );
         $sum = 0;
         $pocet = 0;
         foreach ($rating as $hodnota) {

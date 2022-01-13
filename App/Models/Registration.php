@@ -42,7 +42,10 @@ class Registration extends \App\Core\Model
         $this->id = $id;
     }
 
-
+    public function getNameAndLastName(): ?string
+    {
+        return $this->getFirstname() .' '. $this->getLastname();
+    }
 
 
 

@@ -19,6 +19,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="public/css.css">
+
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
@@ -52,6 +53,8 @@
         <?php } ?>
     </ul>
     <script src="public/scripty.js" ></script>
+    <script src="public/jquery.js" ></script>
+    <script src="public/komentare.js" ></script>
 </header>
 <?= $contentHTML ?>
 <!--<div class="container">

@@ -13,21 +13,12 @@ class Auth
 
     public static function login($login, $password)
     {
-        //$pr = Connection::connect()->prepare('SELECT * FROM users WHERE username like ?');
-        //$pr->execute([$login]);
-        //$found = $pr->fetchAll();
-        //$found = Registration::getAll('username like "' . $login . '"');
-        // $found = Registration::getAll('username like "' . @0 . '"',$login);
-        //$found = Registration::getAll(['username' => $login]);
+
 
         $found = Registration::getAll("username = ?", [ $login ]);
         if ($found != null) {
             foreach ($found as $user) {
-                //if (password_verify($password, $user->getPassword())) {
-                /*$_SESSION['id'] = $user->getId();
-                $_SESSION['name'] = $user->getUsername();
-                return true;
-            }*/
+
                 if (password_verify($password, $user->getPassword())) {
                     $_SESSION['id'] = $user->getId();
                     $_SESSION['name'] = $user->getUsername();
@@ -58,7 +49,7 @@ class Auth
 
     public static function register($username, $password, $firstname, $lastname)
     {
-        if (Registration::getAll('username like "' . $username . '"') == null && $username != null
+        if (Registration::getAll("username like ?",[$username]) == null && $username != null
             && $password != null && $firstname != null && $lastname != null) {
             $pass = password_hash($password, PASSWORD_DEFAULT);
             $newUser = new Registration(username: $username, firstname: $firstname, lastname: $lastname, password: $pass);
@@ -77,21 +68,21 @@ class Auth
             $found = Registration::getOne($_SESSION['id']);
 
             if ($found != null) {
-                $projects = Project::getAll('user_id like "' . $_SESSION['id'] . '"');
+                $projects = Project::getAll("user_id like ?",$_SESSION['id']);
 
                 foreach ($projects as $project) {
                     Portfolio::deleteProject($project->getId());
                 }
 
                 //vymazanie jeho komentarov
-                $comments = Comment::getAll('user_id like "' . $_SESSION['id'] . '"');
+                $comments = Comment::getAll("user_id like ?", [ $_SESSION['id']]);
 
                 foreach ($comments as $comment) {
                     $comment->delete();
                 }
 
                 //vymazanie jeho ratingov
-                $ratings = Rating::getAll('id_user like "' . $_SESSION['id'] . '"');
+                $ratings = Rating::getAll("user_id like ?", [ $_SESSION['id']]);
 
                 foreach ($ratings as $rating) {
                     $rating->delete();
@@ -128,7 +119,7 @@ class Auth
                         return 'Zadali ste nevhodnú hodnotu';
                     }
                 } else {
-                    if (Registration::getAll('username like "' . $username . '"') == null
+                    if (Registration::getAll("username like ?", [$username]) == null
                         && $username != null && $firstname != null && $lastname != null) {
                         $found->setFirstname($firstname);
                         $found->setLastname($lastname);
