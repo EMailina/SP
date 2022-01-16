@@ -183,8 +183,7 @@ class Auth
         }
     }
 
-    public
-    static function checkName($name)
+    public static function checkName($name)
     {
         if ($name != null) {
             if (preg_match("/^[A-Z][a-z]*$/", $name)) {
