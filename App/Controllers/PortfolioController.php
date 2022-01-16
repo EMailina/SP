@@ -336,12 +336,7 @@ class PortfolioController extends AControllerRedirect
                 $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id']]);
 
             }
-            /*if ($hodnota === true) {
-                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id']]);
 
-            } else {
-                $this->redirect('portfolio', 'ukazkaProjektu', ['id' => $_GET['id'], 'error' => 'Nastala chyba s komentárom.']);
-            }*/
         }
     }
 
